@@ -8,7 +8,7 @@ import Navbar from "./navbar.jsx";
 
 const Dashboard = () => {
 
-    const {isLoggedIn, setIsLoggedIn} = useContext(AppContext);
+    const {isLoggedIn, setIsLoggedIn , siteurl} = useContext(AppContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const Dashboard = () => {
 
 
     const handelLogout = async () => {
-        const url = "http://localhost:4001/api/auth/logout";
+        const url = siteurl+"/api/auth/logout";
         const res = await axios.post(url,null,{withCredentials:true});
 
         if(res.data.success){
