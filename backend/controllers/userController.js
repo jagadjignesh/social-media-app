@@ -209,7 +209,8 @@ const sendResetPasswordEmail = async (req, res) => {
         user.resetpasswordtoken = token;
         await user.save();
 
-        const resetlink = "http://localhost:3000/reset-password/"+token;
+        const frontend_url = process.env.FRONTEND_URL;
+        const resetlink = frontend_url+"/reset-password/"+token;
 
         await authEmail.sendMail({
             from: process.env.FROM_EMAIL,
