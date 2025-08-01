@@ -20,7 +20,7 @@ const RegisterFrom = () => {
         try {
             const {data} = await axios.post(url,{name:name,email:email,password:password});
 
-            if(data.success == true){
+            if(data.success === true){
                 setIsVerifyAccount(true);
             } else {
                 toast.error(data.msg);

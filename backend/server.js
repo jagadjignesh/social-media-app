@@ -6,8 +6,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const app = express();
+const frontend_url = process.env.FRONTEND_URL;
 app.use(cors({
-  origin: 'https://social-media-app-frontend-7qbh.onrender.com',
+  origin: frontend_url,
   credentials: true,
 }));
 app.use(cookieParser());
