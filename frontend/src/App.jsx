@@ -1,9 +1,9 @@
 import './css/App.css';
-import LoginForm from './components/login.js'; 
+import LoginForm from './components/login.jsx'; 
 import { BrowserRouter, Routes , Route } from 'react-router-dom';
-import Home from './components/home.js';
-import RegisterForm from './components/register.js';
-import Dashboard from './components/dashboard.js';
+import Home from './components/home.jsx';
+import RegisterForm from './components/register.jsx';
+import Dashboard from './components/dashboard.jsx';
 import { ToastContainer} from 'react-toastify';
 import ResetPasswordEmailForm from './components/resetpasswordemailform.jsx';
 import ResetPassword from './components/resetpassword.jsx';

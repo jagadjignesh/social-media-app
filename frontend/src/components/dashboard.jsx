@@ -38,7 +38,7 @@ const Dashboard = () => {
             <h2>Welcome User!</h2>
             <p>This is dashboard page bro.</p>
             <div className="form__sign-up" onClick={handelLogout}>Logout</div>
-            <TodoBoard />
+            {/* <TodoBoard /> */}
         </>
     )
 }

@@ -5,8 +5,8 @@ export const AppContext = createContext();
 export const AuthProvider = (props) => {
     
     const [isLoggedIn , setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
-    const siteurl = process.env.REACT_APP_SITE_URL;
-
+    const siteurl = import.meta.env.VITE_SITE_URL;
+    console.log(siteurl);
     return (
         <AppContext.Provider value={{isLoggedIn, setIsLoggedIn, siteurl}}>
             {props.children}
