@@ -32,7 +32,7 @@ export const AuthProvider = (props) => {
             }
         }
 
-        if(location.pathname != '/register'){
+        if(location.pathname != '/register' && !location.pathname.includes("/reset-password")){
             userAuth();
         }
 
