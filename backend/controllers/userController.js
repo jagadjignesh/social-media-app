@@ -96,7 +96,6 @@ const login = async (req,res) => {
     } catch (error) {
         res.json({success:false,msg:error.message})
     }
-
 };
 
 const logout = async (req,res) => {
@@ -390,8 +389,20 @@ const deleteUser = async (req, res) => {
     }
 };
 
-const authUser = (req,res) => {
-    res.json({success:true});
+const authUser = async (req,res) => {
+    const email = req.email;
+
+    try {
+        const user = await User.findOne({email}).select("profileimage -_id");
+
+        if(!user){
+            res.json({success:false,msg:"User not exist"});
+        }
+
+        res.json({success:true,user:user});
+    } catch (error) {
+        res.json({success:false,msg:error.message});
+    }
 }
 
 module.exports = {register, login, alluser, logout , verifyAccount , sendResetPasswordEmail, resetPassword , updateuser , getUser , getUserConnections, followUser , deleteUser ,authUser};

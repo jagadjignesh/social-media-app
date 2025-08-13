@@ -7,6 +7,7 @@ export const AppContext = createContext();
 export const AuthProvider = (props) => {
     
     const [isLoggedIn , setIsLoggedIn] = useState();
+    const [currentUser , setCurrentUser] = useState();
     const siteurl = import.meta.env.VITE_SITE_URL;
     const location = useLocation();
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const AuthProvider = (props) => {
                 const { data } = await axios.post(url,{},{withCredentials:true});
 
                 if(data.success === true){
+                    setCurrentUser(data.user);
                     localStorage.setItem("isLoggedIn", true);
                     setIsLoggedIn(true);
                 } else {
@@ -34,10 +36,10 @@ export const AuthProvider = (props) => {
             userAuth();
         }
 
-    },[location.pathname]);
+    },[isLoggedIn,location.pathname]);
 
     return (
-        <AppContext.Provider value={{isLoggedIn, setIsLoggedIn, siteurl}}>
+        <AppContext.Provider value={{isLoggedIn, setIsLoggedIn, siteurl , currentUser}}>
             {props.children}
         </AppContext.Provider>
     );
