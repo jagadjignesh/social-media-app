@@ -96,8 +96,7 @@ const Users = ({state}) => {
                             </div>
                         </div>
                     )
-                })) : (<p>Users not found.</p>)}
-
+                })) : (<p className="py-5">Users not found.</p>)}
             </div>
         </>
     )
