@@ -18,7 +18,7 @@ const ResetPassword = () => {
 
             if(data.success === true){
                 toast.success(data.msg);
-                navigate('/login');
+                navigate('/');
             } else {
                 toast.error(data.msg);
             }
@@ -28,35 +28,37 @@ const ResetPassword = () => {
     }
     return (
         <>
-            <section className="form__section">
-                <form className="form" onSubmit={handleSetNewPassword}>
-                    <div className="form__title">New Password</div>
-                    <div className="form__sub-title">Please Enter Your New Password</div>
-                    <label className="form__input-label">Password</label>
-                    <div className="form__input-wrapper">
-                        <input id="password-input" name="password" className="form__input form__input--has-svg" placeholder="Type your password..."
-                        type="password" onChange={(e) => setPassword(e.target.value)}/>
-                        <div className="form__pass-toggle">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clipPath="url(#clip0_216_38)">
-                                    <path
-                                    d="M0.833374 9.99998C0.833374 9.99998 4.16671 3.33331 10 3.33331C15.8334 3.33331 19.1667 9.99998 19.1667 9.99998C19.1667 9.99998 15.8334 16.6666 10 16.6666C4.16671 16.6666 0.833374 9.99998 0.833374 9.99998Z"
-                                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path
-                                    d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z"
-                                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_216_38">
-                                    <rect width="20" height="20" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
+            <div className="main_container">
+                <section className="form__section">
+                    <form className="form" onSubmit={handleSetNewPassword}>
+                        <div className="form__title">New Password</div>
+                        <div className="form__sub-title">Please Enter Your New Password</div>
+                        <label className="form__input-label">Password</label>
+                        <div className="form__input-wrapper">
+                            <input id="password-input" name="password" className="form__input form__input--has-svg" placeholder="Type your password..."
+                            type="password" onChange={(e) => setPassword(e.target.value)}/>
+                            <div className="form__pass-toggle">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clipPath="url(#clip0_216_38)">
+                                        <path
+                                        d="M0.833374 9.99998C0.833374 9.99998 4.16671 3.33331 10 3.33331C15.8334 3.33331 19.1667 9.99998 19.1667 9.99998C19.1667 9.99998 15.8334 16.6666 10 16.6666C4.16671 16.6666 0.833374 9.99998 0.833374 9.99998Z"
+                                        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path
+                                        d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z"
+                                        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_216_38">
+                                        <rect width="20" height="20" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
                         </div>
-                    </div>
-                    <button className="form__submit-btn">Reset Password</button>
-                </form>
-            </section>
+                        <button className="form__submit-btn">Reset Password</button>
+                    </form>
+                </section>
+            </div>
         </>
     )
 }

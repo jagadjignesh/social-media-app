@@ -8,11 +8,12 @@ const userAuth = async (req,res,next) => {
     }
 
     try {
-        const decoded = jwt.verify(token,process.env.JWT_SECRET);
-        res.json({success:true,data:'decoded'});
+        const decoded = await jwt.verify(token,process.env.JWT_SECRET);
+        req.email = decoded.email;
+        req.user_id = decoded.user_id;
         next();
     } catch (error) {
-        return res.json({sucess:false,errorMsg:error.massage});
+        return res.json({sucess:false,msg:error.massage});
     }
 }
 

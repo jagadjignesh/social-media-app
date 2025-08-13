@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
-const User = require('../models/userModel'); 
+const User = require('../models/userModel');
+const Post = require("../models/postModel");
+const Like = require("../models/likeModel");
+const Comment = require("../models/commentModel");
 const jwt = require("jsonwebtoken");
 const authEmail = require("../config/emailconfig");
 require("dotenv").config();
@@ -78,11 +81,11 @@ const login = async (req,res) => {
                 res.json({success:false,msg:"Please verify your account, OTP send on your email",notverified:true});
             }
 
-            const token = jwt.sign({user:user._id,email:email},process.env.JWT_SECRET,{expiresIn:"1d"});
+            const token = jwt.sign({user_id:user._id,email:email},process.env.JWT_SECRET,{expiresIn:"1d"});
             res.cookie("token",token,{
                 httpOnly:true,
                 secure:false,
-                sameSite:"Lax"
+                sameSite:"Lax",
             });
 
             res.json({success:true,msg:"Login successfull"});
@@ -110,35 +113,23 @@ const alluser = async (req,res) => {
     res.status(200).json({msg:"ALL users are here bro",users:users});
 };
 
-const sendVerifyEmail = async (req, res) => {
-    const {email} = req.body;
+const getUser = async (req,res) => {
+    const { id } = req.body;
+    const user_id = id ? id : req.user_id;
 
-    if(!email) {
-        res.json({success:false,msg:"Please provide your registered email"});
+    if(!user_id) {
+        res.json({success:false,msg:"Invalid User"});
     }
 
     try {
-        const user = await User.findOne({email});
+        const user = await User.findOne({_id:user_id});
 
-        if(!user) {
-            res.json({success:false,msg:"User not exist"});
+        if(!user){
+            res.json({success:false,msg:"User not found"});
         }
 
-        if(user.isverify == false){
-            const otp = Math.floor(999 + Math.random() * 9000);
-
-            authEmail.sendEmail({
-                from:process.env.FROM_EMAIL,
-                to:email,
-                subject:"Reset password verifiacation email",
-                text:`Please verify your account`
-            })
-
-            res.json({success:true,otp:otp});
-        } else {
-            res.json({success:false,msg:"User already verified"});
-        }
-    } catch(error) {
+        res.json({success:true,user:user});
+    } catch (error) {
         res.json({success:false,msg:error.message});
     }
 }
@@ -170,12 +161,13 @@ const verifyAccount = async (req, res) => {
             res.json({success:false,msg:"OTP expired"});
         }
 
-        const token = jwt.sign({user:user._id,email:email},process.env.JWT_SECRET,{expiresIn:"1d"});
+        const token = jwt.sign({user_id:user._id,email:email},process.env.JWT_SECRET,{expiresIn:"1d"});
 
         res.cookie("token",token,{
             httpOnly:true,
             secure:false,
-            sameSite:"Lax"
+            sameSite:"Lax",
+            maxAge: 24 * 60 * 60 * 1000
         });
 
         user.isverify = true;
@@ -268,4 +260,134 @@ const resetPassword = async (req, res) => {
     }
 }
 
-module.exports = {register, login, alluser, logout , verifyAccount , sendResetPasswordEmail, resetPassword};
+const updateuser = async (req,res) => {
+    const {name, bio, email} = req.body;
+
+    if(!name) {
+        res.json({success:false,msg:"Name is required"});
+    }
+
+    try {
+        const user = await User.findOne({email});
+
+        if(!user){
+            res.json({success:false,msg:"User not found"});
+        }
+
+        user.bio = bio;
+        user.name = name;
+        if(req.file){
+            user.profileimage = "uploads/"+req.file.filename;
+        }
+        await user.save();
+
+        res.json({success:true,file:req.file,msg:"Profile update successfully",req:req.body});
+    } catch (error) {
+        res.json({success:false,msg:error.message});
+    }    
+}
+
+const getUserConnections = async (req,res) => {
+    const user_id = req.user_id;
+    const {state} = req.body;
+    try {
+        let users;
+        switch (state) {
+            case "all":
+                users = await User.find({ _id: { $ne: user_id } });
+                break;
+            case "following":
+                users = await User.find({ followers: user_id });
+                break;
+            case "follower":
+                users = await User.find({ followings: user_id });
+                break;
+            default:
+                return res.status(400).json({ success: false, msg: "Invalid state parameter" });
+        }
+
+        if(!users){
+            res.json({success:false,msg:"User Not Found"});
+        }
+
+        res.json({success:true,users:users,user_id:user_id});
+    } catch (error) {
+        res.json({success:false,msg:error.message});
+    }
+}
+
+const followUser = async (req, res) => {
+    const current_user_id = req.user_id;
+    const { user_id } = req.body;
+
+    if (!current_user_id || !user_id ) {
+        return res.json({ success: false, msg: "Invalid User" });
+    }
+
+    try {
+        const targetUser = await User.findById(user_id);
+        const currentUser = await User.findById(current_user_id);
+
+        if (!targetUser || !currentUser) {
+            return res.json({ success: false, msg: "User not found" });
+        }
+
+        const isFollowing = targetUser.followers.includes(current_user_id);
+
+        if (isFollowing) {
+            await User.findByIdAndUpdate(user_id, { $pull: { followers: current_user_id } });
+            await User.findByIdAndUpdate(current_user_id, { $pull: { followings: user_id } });
+
+            return res.json({
+                success: true,
+                msg: `You unfollowed ${targetUser.name}`,
+                user_id: user_id,
+            });
+        } else {
+            await User.findByIdAndUpdate(user_id, { $addToSet: { followers: current_user_id } });
+            await User.findByIdAndUpdate(current_user_id, { $addToSet: { followings: user_id } });
+
+            return res.json({
+                success: true,
+                msg: `You are now following ${targetUser.name}`,
+                user_id: user_id,
+            });
+        }
+    } catch (error) {
+        return res.json({ success: false, msg: error.message });
+    }
+};
+
+const deleteUser = async (req, res) => {
+    const user_id = req.user_id;
+
+    if (!user_id) {
+        return res.json({ success: false, msg: "Invalid User" });
+    }
+
+    try {
+        await User.updateMany(
+            { followers: user_id },
+            { $pull: { followers: user_id } }
+        );
+
+        await User.updateMany(
+            { followings: user_id },
+            { $pull: { followings: user_id } }
+        );
+
+        await Post.deleteMany({ user_id });
+        await Like.deleteMany({ user_id });
+        await Comment.deleteMany({ user_id });
+        await User.deleteOne({ _id: user_id });
+
+        res.clearCookie('token');
+
+        return res.json({ success: true, msg: "User deleted successfully" });
+
+    } catch (error) {
+        return res.json({ success: false, msg: error.message });
+    }
+};
+
+module.exports = {register, login, alluser, logout , verifyAccount , sendResetPasswordEmail, resetPassword , updateuser , getUser , getUserConnections, followUser , deleteUser};

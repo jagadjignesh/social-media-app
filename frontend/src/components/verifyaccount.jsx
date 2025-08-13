@@ -60,7 +60,7 @@ const VerifyAccount = (props) => {
 
             if(data.success){
                 toast.success(data.msg);
-                navigate('/dashboard');
+                navigate('/');
             } else {
                 toast.error(data.msg);
             }
@@ -71,25 +71,27 @@ const VerifyAccount = (props) => {
 
     return (
         <>
-            <section className="form__section">
-                <form className="form" onSubmit={verifyAccountHandleSubmit}>
-                    <div className="form__title">Account verification</div>
-                    <div className="form__sub-title">Please check your email to get verification OTP</div>
-                    <div className="form__input-wrapper otp-wrapper" onPaste={handlePasteOtp}>
-                        {otpinput.map((input,index) => {
-                            return <input
-                            key={index}
-                            className="otp_input"
-                            type="text"
-                            value={otpinput[index]}
-                            ref={(input) => (refArray.current[index] = input)}
-                            onKeyDown={(e) => handleBackspaceOtp(e,index)}
-                            onChange={(e) => handelOnChangeOtp(e.target.value,index)}/>
-                        })}
-                    </div>
-                    <button className="form__submit-btn">Verify</button>
-                </form>
-            </section>
+            <div className="main_container">
+                <section className="form__section">
+                    <form className="form" onSubmit={verifyAccountHandleSubmit}>
+                        <div className="form__title">Account verification</div>
+                        <div className="form__sub-title">Please check your email to get verification OTP</div>
+                        <div className="form__input-wrapper otp-wrapper" onPaste={handlePasteOtp}>
+                            {otpinput.map((input,index) => {
+                                return <input
+                                key={index}
+                                className="otp_input"
+                                type="text"
+                                value={otpinput[index]}
+                                ref={(input) => (refArray.current[index] = input)}
+                                onKeyDown={(e) => handleBackspaceOtp(e,index)}
+                                onChange={(e) => handelOnChangeOtp(e.target.value,index)}/>
+                            })}
+                        </div>
+                        <button className="form__submit-btn">Verify</button>
+                    </form>
+                </section>
+            </div>
         </>
     )
 }

@@ -32,7 +32,23 @@ const userSchema = new mongoose.Schema({
     resetpasswordtoken:{
         type : String,
         trim : true
-    }
+    },
+    profileimage: {
+        type : String,
+        trim : true
+    },
+    bio : {
+        type : String,
+        trim : true
+    },
+    followings : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    }],
+    followers : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    }]
 });
 
 const user = mongoose.model('User',userSchema);

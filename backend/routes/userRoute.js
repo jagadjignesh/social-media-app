@@ -2,15 +2,26 @@ const express = require("express");
 const userController = require('../controllers/userController');
 const router = express.Router();
 const userAuth = require("../middlewares/userMiddleware");
+const upload = require("../middlewares/fileuploadmiddleware");
+const postController = require("../controllers/postController");
 
 router.post('/login',userController.login);
 router.post('/register',userController.register);
 router.post('/user',userController.alluser);
+router.post('/getuser',userAuth ,userController.getUser);
 router.post('/logout',userController.logout);
-// router.post('/send-verify-email', userController.sendVerifyEmail);
 router.post('/verify-account', userController.verifyAccount);
 router.post('/send-reset-password-email', userController.sendResetPasswordEmail);
 router.post('/reset-password', userController.resetPassword);
-
+router.post('/update-user', userAuth, upload.single('profileimage'),userController.updateuser);
+router.post('/create-post', userAuth, upload.single('postimage'),postController.createPost);
+router.post('/get-user-posts', userAuth, postController.getUserPosts);
+router.post('/user-connections', userAuth, userController.getUserConnections);
+router.post('/follow-user', userAuth, userController.followUser);
+router.post('/user-feed', userAuth, postController.userFeed);
+router.post('/delete-user', userAuth, userController.deleteUser);
+router.post('/like-dislike', userAuth, postController.likeDislike);
+router.post('/add-comment', userAuth, postController.addPostComment);
+router.post('/get-comment', userAuth, postController.getPostComments);
 
 module.exports = router;
