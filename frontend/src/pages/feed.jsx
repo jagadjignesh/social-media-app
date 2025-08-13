@@ -31,10 +31,10 @@ const Feed = () => {
                 <div className="flex-2">
                     <Posts posts={feed} />
                 </div>
-                <div className="flex-1 px-6">
+                {/* <div className="flex-1 px-6">
                     <h2>Recent Message</h2>
                     <p>Comming Soon...</p>
-                </div>
+                </div> */}
             </div>
         </>
     )

@@ -21,9 +21,6 @@ const Connections = () => {
                     <li className="me-2">
                         <div className={connState == "follower" ? activeTab : inActiveTab } onClick={() => setConnState("follower")}>Followers</div>
                     </li>
-                    <li>
-                        <div className="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</div>
-                    </li>
                 </ul>
                 <div id="user_cards">
                     <Users state={connState} setConnState={setConnState} />

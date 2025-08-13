@@ -390,4 +390,8 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = {register, login, alluser, logout , verifyAccount , sendResetPasswordEmail, resetPassword , updateuser , getUser , getUserConnections, followUser , deleteUser};
+const authUser = (req,res) => {
+    res.json({success:true});
+}
+
+module.exports = {register, login, alluser, logout , verifyAccount , sendResetPasswordEmail, resetPassword , updateuser , getUser , getUserConnections, followUser , deleteUser ,authUser};

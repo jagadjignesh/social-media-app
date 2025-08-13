@@ -6,6 +6,7 @@ const upload = require("../middlewares/fileuploadmiddleware");
 const postController = require("../controllers/postController");
 
 router.post('/login',userController.login);
+router.post('/authuser',userAuth,userController.authUser);
 router.post('/register',userController.register);
 router.post('/user',userController.alluser);
 router.post('/getuser',userAuth ,userController.getUser);

@@ -4,7 +4,7 @@ const userAuth = async (req,res,next) => {
     const {token} = req.cookies;
 
     if(!token){
-        return res.json({sucess:false,msg:"Unauthorized , Please login in again"});
+        return res.json({success:false,msg:"Unauthorized , Please login in again"});
     }
 
     try {
@@ -13,7 +13,7 @@ const userAuth = async (req,res,next) => {
         req.user_id = decoded.user_id;
         next();
     } catch (error) {
-        return res.json({sucess:false,msg:error.massage});
+        return res.json({success:false,msg:error.massage});
     }
 }
 
