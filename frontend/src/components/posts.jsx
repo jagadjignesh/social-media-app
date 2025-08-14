@@ -69,13 +69,14 @@ const Posts = ({posts}) => {
                 setComments(prev => [...prev, data.comment]);
                 setCommentText("");
 
-                setPosts(prevPosts =>
-                    prevPosts.map(post =>
-                        post._id === selectedPost._id
-                            ? { ...post, commentCount: (post.commentCount || 0) + 1 }
-                            : post
-                    )
-                );
+                setPosts(prevPosts => {
+                    return prevPosts.map(post => {
+                        if(post._id === selectedPost._id){
+                            return {...post , commentCount : post.commentCount ? post.commentCount + 1 : 1}
+                        }
+                        return post;
+                    })
+                });
             }
         } catch (error) {
             console.error(error.message);
@@ -132,7 +133,7 @@ const Posts = ({posts}) => {
                                         d="M17 8h2a2 2 0 012 2v10l-4-4H7a2 2 0 01-2-2V8a2 2 0 012-2h2"
                                     />
                                 </svg>
-                                <span>{post.commnetCount}</span>
+                                <span>{post.commentCount}</span>
                             </div>
                         </div>
                     </div>

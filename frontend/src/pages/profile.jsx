@@ -20,7 +20,7 @@ const Profile = () => {
                 const payload = id ? {id} : {};
                 const url = siteurl+"/api/auth/getuser";
                 const {data} = await axios.post(url,payload,{withCredentials:true});
-        
+
                 if(data.success === true){
                     if(data.user.profileimage){
                         data.user.profileimage = siteurl+"/"+data.user.profileimage;
@@ -44,6 +44,8 @@ const Profile = () => {
 
                 if(data.success === true){
                     setPosts(data.posts);
+                } else if(data.notHavePosts){
+                    setPosts({});
                 }
             } catch (error) {
                 toast.error(error.messege);
@@ -86,6 +88,18 @@ const Profile = () => {
                 toast.success(data.msg);
                 setUser(editedUser);
                 setIsModalOpen(false);
+
+                setPosts((prevPosts) => {
+                    return prevPosts.map((post) => {
+                        return {...post ,
+                            user_id : {
+                                ...post.user_id,
+                                name : data.user.name,
+                                profileimage : data.user.profileimage
+                            }
+                        }
+                    });
+                })
             } else {
                 toast.error(data.msg);
             }
@@ -113,12 +127,12 @@ const Profile = () => {
                     </div>
 
                     {/* Edit Button */}
-                    <button
+                    {!id ? (<button
                         onClick={handleEditClick}
                         className="absolute top-0 right-0 text-sm px-3 py-1 bg-gray-700 rounded hover:bg-gray-600 transition"
                     >
                         Edit Profile
-                    </button>
+                    </button>) : ''}
                 </div>
 
                 {/* Bio */}

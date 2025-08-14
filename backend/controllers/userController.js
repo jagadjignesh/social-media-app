@@ -267,7 +267,7 @@ const updateuser = async (req,res) => {
     }
 
     try {
-        const user = await User.findOne({email});
+        const user = await User.findOne({email}).select("bio name profileimage");
 
         if(!user){
             res.json({success:false,msg:"User not found"});
@@ -280,7 +280,7 @@ const updateuser = async (req,res) => {
         }
         await user.save();
 
-        res.json({success:true,file:req.file,msg:"Profile update successfully",req:req.body});
+        res.json({success:true,user:user,msg:"Profile update successfully"});
     } catch (error) {
         res.json({success:false,msg:error.message});
     }    

@@ -51,13 +51,13 @@ const getUserPosts = async (req, res) => {
                     Like.exists({ post_id: post._id, user_id:currentUserId })
                 ]);
 
-                const commnetCount = await Comment.countDocuments({ post_id:post._id });
+                const commentCount = await Comment.countDocuments({ post_id:post._id });
 
                 return {
                     ...post.toObject(),
                     likes: likesCount,
                     isLiked: !!likedByUser,
-                    commnetCount: commnetCount
+                    commentCount: commentCount
                 };
             })
         );
@@ -94,13 +94,13 @@ const userFeed = async (req, res) => {
                     Like.exists({ post_id: post._id, user_id: currentUserId })
                 ]);
 
-                const commnetCount = await Comment.countDocuments({ post_id:post._id });
+                const commentCount = await Comment.countDocuments({ post_id:post._id });
 
                 return {
                     ...post.toObject(),
                     likes: likesCount,
                     isLiked: !!likedByUser,
-                    commnetCount: commnetCount
+                    commentCount: commentCount
                 };
             })
         );

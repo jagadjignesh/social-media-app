@@ -20,9 +20,7 @@ const Feed = () => {
                 toast.error(data.msg);
             }
         }
-        if(isLoggedIn === true){
-            getUserFeed();
-        }
+        getUserFeed();
     },[]);
 
     return (
