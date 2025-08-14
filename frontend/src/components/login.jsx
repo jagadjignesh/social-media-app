@@ -30,6 +30,8 @@ const LoginForm = () => {
                     toast(data.msg);
                     navigate("/");
                 } else {
+                    setIsLoggedIn(false);
+                    localStorage.setItem("isLoggedIn",false);
                     toast.error(data.msg);
                 }
             }

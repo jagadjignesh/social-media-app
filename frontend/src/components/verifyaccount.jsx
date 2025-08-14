@@ -41,7 +41,6 @@ const VerifyAccount = (props) => {
         const pasteArray = paste.split('');
         pasteArray.forEach((char, index) => {
             if(refArray.current[index]){
-                console.log(refArray);
                 refArray.current[index].value = char;
             }
         });
@@ -60,7 +59,7 @@ const VerifyAccount = (props) => {
 
             if(data.success){
                 toast.success(data.msg);
-                navigate('/');
+                navigate('/login');
             } else {
                 toast.error(data.msg);
             }

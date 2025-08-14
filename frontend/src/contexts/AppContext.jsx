@@ -6,7 +6,7 @@ export const AppContext = createContext();
 
 export const AuthProvider = (props) => {
     
-    const [isLoggedIn , setIsLoggedIn] = useState();
+    const [isLoggedIn , setIsLoggedIn] = useState(() => localStorage.getItem('isLoggedIn') || false);
     const [currentUser , setCurrentUser] = useState();
     const siteurl = import.meta.env.VITE_SITE_URL;
     const location = useLocation();
@@ -25,14 +25,21 @@ export const AuthProvider = (props) => {
                 } else {
                     localStorage.setItem("isLoggedIn",false);
                     setIsLoggedIn(false);
-                    navigate('/');
+                    navigate('/login');
                 }
             } catch (error) {
                 console.error(error.message);
             }
         }
 
-        if(location.pathname != '/register' && !location.pathname.includes("/reset-password")){
+        if(location.pathname == '/feed'
+            || location.pathname == '/message'
+            || location.pathname == '/connections'
+            || location.pathname == '/profile'
+            || location.pathname.includes('/profile')
+            || location.pathname == '/create-post'
+            || location.pathname == '/'
+        ){
             userAuth();
         }
 

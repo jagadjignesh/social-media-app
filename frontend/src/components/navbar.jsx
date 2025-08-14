@@ -21,7 +21,7 @@ const Navbar = ({isOpen, setIsOpen}) => {
                 localStorage.setItem("isLoggedIn",false);
                 setIsLoggedIn(false);
                 toast(res.data.msg);
-                navigate('/');
+                navigate('/login');
             } else {
                 toast.error(res.data.msg);
             }
@@ -40,7 +40,7 @@ const Navbar = ({isOpen, setIsOpen}) => {
                 setIsLoggedIn(false);
                 toast(data.msg);
                 setShowDeleteConfirm(false); 
-                navigate('/');
+                navigate('/login');
             } else {
                 toast.error(data.msg);
             }

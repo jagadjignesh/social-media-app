@@ -5,7 +5,7 @@ import { AppContext } from "../contexts/AppContext";
 import { toast } from "react-toastify";
 
 const Feed = () => {
-    const { siteurl } = useContext(AppContext);
+    const { siteurl , isLoggedIn } = useContext(AppContext);
     const [ feed , setFeed ] = useState();
 
     useEffect(() => {
@@ -20,8 +20,9 @@ const Feed = () => {
                 toast.error(data.msg);
             }
         }
-        
-        getUserFeed();
+        if(isLoggedIn === true){
+            getUserFeed();
+        }
     },[]);
 
     return (

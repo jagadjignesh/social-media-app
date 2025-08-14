@@ -18,7 +18,7 @@ const ResetPassword = () => {
 
             if(data.success === true){
                 toast.success(data.msg);
-                navigate('/');
+                navigate('/login');
             } else {
                 toast.error(data.msg);
             }

@@ -1,10 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./navbar.jsx";
 import Sidebar from "./sidebar.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useContext } from 'react';
+import { AppContext } from '../contexts/AppContext.jsx';
 
 const Layout = () => {
     const [isOpen, setIsOpen] = useState(false);
+	const { isLoggedIn } = useContext(AppContext);
+	const navigate = useNavigate();
+    useEffect(() => {
+        if(!isLoggedIn){
+            navigate('/login');
+        }
+    },[]);
+
     return (
         <>
             <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
