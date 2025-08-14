@@ -8,7 +8,6 @@ import {
     Users,
     User,
     Plus,
-    Settings,
 } from "lucide-react";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
@@ -86,11 +85,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                             <Plus size={20} />
                             <span className="mx-4 font-medium">Create Post</span>
                         </NavLink>
-
-                        <a href="#" className={inactive_link}>
-                            <Settings size={20} />
-                            <span className="mx-4 font-medium">Settings</span>
-                        </a>
                     </nav>
                 </div>
             </aside>
