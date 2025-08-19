@@ -95,7 +95,7 @@ const Messages = () => {
                     </div>
 
 
-                    <div className="h-100 overflow-y-auto p-4">
+                    <div className="h-screen overflow-y-auto p-4">
                         {chats.length > 0 ? chats.map((chat,index) => {
                             const isReceived = chat.receiver === currentUser._id;
                             return isReceived ? (
