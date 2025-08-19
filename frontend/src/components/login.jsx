@@ -28,7 +28,7 @@ const LoginForm = () => {
                     setIsLoggedIn(true);
                     localStorage.setItem("isLoggedIn",true);
                     toast(data.msg);
-                    navigate("/");
+                    navigate("/profile");
                 } else {
                     setIsLoggedIn(false);
                     localStorage.setItem("isLoggedIn",false);
@@ -82,7 +82,7 @@ const LoginForm = () => {
                 </section>
             </div>
             ) : (
-                <VerifyAccount email={email} />
+                <VerifyAccount email={email} setIsVerifyAccount={setIsVerifyAccount} />
             )
         }
     </>

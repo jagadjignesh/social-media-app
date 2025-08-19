@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AppContext } from "../contexts/AppContext";
 
-const VerifyAccount = (props) => {
+const VerifyAccount = ({email, setIsVerifyAccount}) => {
 
-    const email = props.email;
     const navigate = useNavigate();
     const refArray = useRef([]);
     const { siteurl } = useContext(AppContext);
@@ -59,6 +58,7 @@ const VerifyAccount = (props) => {
 
             if(data.success){
                 toast.success(data.msg);
+                setIsVerifyAccount(false);
                 navigate('/login');
             } else {
                 toast.error(data.msg);

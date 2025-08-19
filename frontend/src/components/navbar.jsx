@@ -61,7 +61,7 @@ const Navbar = ({isOpen, setIsOpen}) => {
                     </div>
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start cursor-pointer" onClick={() => navigate('/')}>
                         <div className="flex shrink-0 items-center">
-                            <img src="https://chatgpt.com/backend-api/public_content/enc/eyJpZCI6Im1fNjg5OWU1YWVkODJjODE5MWJmNjU5MzRhNWIzNDYxMjY6ZmlsZV8wMDAwMDAwMGQ3ZDg2MWY0YmY0ZjM5NjA2YTE3NDQ4OSIsInRzIjoiNDg3NDc2IiwicCI6InB5aSIsInNpZyI6IjViNjA5MGFlZTI3OTdhZmMxM2RhZDA0NTE3ZGU3NmIyY2M4ZmE3YjA2NDkwZjNmYjNlYzkyZTMwZjY1ZWRlOWEiLCJ2IjoiMCIsImdpem1vX2lkIjpudWxsfQ==" alt="Your Company" className="h-8 w-auto" />
+                            <img src="https://sdmntprnortheu.oaiusercontent.com/files/00000000-d7d8-61f4-bf4f-39606a174489/raw?se=2025-08-19T11%3A00%3A00Z&sp=r&sv=2024-08-04&sr=b&scid=114f8ae8-542f-5271-b0e7-eb9bfc04434a&skoid=5c72dd08-68ae-4091-b4e1-40ccec0693ae&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-18T20%3A28%3A42Z&ske=2025-08-19T20%3A28%3A42Z&sks=b&skv=2024-08-04&sig=9rMASYQIR%2BaNOSY/Heso2WfceuOdNb/MWwkvKlst/vw%3D" alt="Your Company" className="h-8 w-auto" />
                         </div>
                         <h2 className="relative rounded-full bg-gray-800 p-1 text-gray-400  ml-3 text-white">Social World</h2>
                         {/* <div className="hidden sm:ml-6 sm:block">

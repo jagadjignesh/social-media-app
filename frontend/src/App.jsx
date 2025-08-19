@@ -6,10 +6,11 @@ import Layout from './components/layout.jsx';
 import ResetPasswordEmailForm from './components/resetpasswordemailform.jsx';
 import ResetPassword from './components/resetpassword.jsx';
 import Feed from './pages/feed.jsx';
-import Message from './pages/message.jsx';
+import ChatUsers from './pages/chatusers.jsx';
 import Connections from './pages/connections.jsx';
 import Profile from './pages/profile.jsx';
 import CreatePost from './pages/createpost.jsx';
+import Messages from './pages/messages.jsx';
 
 function App() {
 	return (
@@ -18,7 +19,8 @@ function App() {
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Feed />} />
 					<Route path='/feed' element={<Feed />} />
-					<Route path='/message' element={<Message />} />
+					<Route path='/message' element={<ChatUsers />} />
+					<Route path='/message/:id' element={<Messages />} />
 					<Route path='/connections' element={<Connections />} />
 					<Route path='/profile' element={<Profile />} />
 					<Route path='/profile/:id' element={<Profile />} />

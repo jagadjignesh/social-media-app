@@ -7,7 +7,7 @@ export const AppContext = createContext();
 export const AuthProvider = (props) => {
     
     const [isLoggedIn , setIsLoggedIn] = useState(() => localStorage.getItem('isLoggedIn') || false);
-    const [currentUser , setCurrentUser] = useState();
+    const [currentUser , setCurrentUser] = useState({});
     const siteurl = import.meta.env.VITE_SITE_URL;
     const location = useLocation();
     const navigate = useNavigate();
@@ -34,6 +34,7 @@ export const AuthProvider = (props) => {
 
         if(location.pathname == '/feed'
             || location.pathname == '/message'
+            || location.pathname.includes('/message/')
             || location.pathname == '/connections'
             || location.pathname == '/profile'
             || location.pathname.includes('/profile')

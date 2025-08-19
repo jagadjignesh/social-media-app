@@ -26,12 +26,30 @@ const register = async (req,res) => {
     const otpExpirationTime = Date.now() + 10 * 60 * 1000;
 
     await authEmail.sendMail({
-        from:process.env.FROM_EMAIL,
-        to:email,
-        subject:"Account verification email",
-        text:`Please verify your account using ${otp} OTP`
+        from: process.env.FROM_EMAIL,
+        to: email,
+        subject: "Verify your account",
+        text: `Hi there, \n\nThank you for signing up. Please use the following One-Time Password (OTP) to verify your account: \n\n${otp}\n\nThis OTP will expire in 10 minutes. If you did not request this, please ignore this email.`,
+        html: `<div style="font-family: Arial, sans-serif; color: #333;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="center">
+                            <table width="600" cellpadding="20" cellspacing="0" border="0" style="border: 1px solid #e0e0e0; border-radius: 8px;">
+                                <tr>
+                                    <td>
+                                        <h2 style="color: #007bff;">Account Verification</h2>
+                                        <p>Hi there,</p>
+                                        <p>Thank you for signing up. Please use the following One-Time Password (OTP) to verify your account:</p>
+                                        <p style="font-size: 24px; font-weight: bold; color: #007bff;">${otp}</p>
+                                        <p>This OTP will expire in 10 minutes. If you did not request this, please ignore this email.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>`
     });
-
 
     const newUser = await User({
         name,
@@ -68,12 +86,32 @@ const login = async (req,res) => {
                 const otpExpirationTime = Date.now() + 10 * 60 * 1000;
 
                 await authEmail.sendMail({
-                    from:process.env.FROM_EMAIL,
-                    to:email,
-                    subject:"Account verification email",
-                    text:`Please verify your account using ${otp} OTP`
+                    from: process.env.FROM_EMAIL,
+                    to: email,
+                    subject: "Verify your account",
+                    text: `Hi there, \n\nThank you for signing up. Please use the following One-Time Password (OTP) to verify your account: \n\n${otp}\n\nThis OTP will expire in 10 minutes. If you did not request this, please ignore this email.`,
+                    html: `<div style="font-family: Arial, sans-serif; color: #333;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center">
+                                        <table width="600" cellpadding="20" cellspacing="0" border="0" style="border: 1px solid #e0e0e0; border-radius: 8px;">
+                                            <tr>
+                                                <td>
+                                                    <h2 style="color: #007bff;">Account Verification</h2>
+                                                    <p>Hi there,</p>
+                                                    <p>Thank you for signing up. Please use the following One-Time Password (OTP) to verify your account:</p>
+                                                    <p style="font-size: 24px; font-weight: bold; color: #007bff;">${otp}</p>
+                                                    <p>This OTP will expire in 10 minutes. If you did not request this, please ignore this email.</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>`
                 });
-                
+
+
                 user.verificationotp = hashedotp;
                 user.otpexpire = otpExpirationTime;
                 await user.save();
@@ -81,7 +119,7 @@ const login = async (req,res) => {
                 res.json({success:false,msg:"Please verify your account, OTP send on your email",notverified:true});
             }
 
-            const token = jwt.sign({user_id:user._id,email:email},process.env.JWT_SECRET,{expiresIn:"1d"});
+            const token = jwt.sign({user_id:user._id,email:email},process.env.JWT_SECRET);
             res.cookie("token",token,{
                 httpOnly:true,
                 secure:true,
@@ -121,7 +159,7 @@ const getUser = async (req,res) => {
     }
 
     try {
-        const user = await User.findOne({_id:user_id});
+        const user = await User.findOne({_id:user_id}).select("name email bio profileimage followings followers");
 
         if(!user){
             res.json({success:false,msg:"User not found"});
@@ -160,7 +198,7 @@ const verifyAccount = async (req, res) => {
             res.json({success:false,msg:"OTP expired"});
         }
 
-        const token = jwt.sign({user_id:user._id,email:email},process.env.JWT_SECRET,{expiresIn:"1d"});
+        const token = jwt.sign({user_id:user._id,email:email},process.env.JWT_SECRET);
 
         res.cookie("token",token,{
             httpOnly:true,
@@ -293,13 +331,13 @@ const getUserConnections = async (req,res) => {
         let users;
         switch (state) {
             case "all":
-                users = await User.find({ _id: { $ne: user_id } });
+                users = await User.find({ _id: { $ne: user_id } }).select("name email bio profileimage followings followers");
                 break;
             case "following":
-                users = await User.find({ followers: user_id });
+                users = await User.find({ followers: user_id }).select("name email bio profileimage followings followers");
                 break;
             case "follower":
-                users = await User.find({ followings: user_id });
+                users = await User.find({ followings: user_id }).select("name email bio profileimage followings followers");
                 break;
             default:
                 return res.status(400).json({ success: false, msg: "Invalid state parameter" });
@@ -393,7 +431,7 @@ const authUser = async (req,res) => {
     const email = req.email;
 
     try {
-        const user = await User.findOne({email}).select("profileimage -_id");
+        const user = await User.findOne({email}).select("profileimage _id");
 
         if(!user){
             res.json({success:false,msg:"User not exist"});

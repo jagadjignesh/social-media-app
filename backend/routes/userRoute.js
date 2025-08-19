@@ -4,6 +4,7 @@ const router = express.Router();
 const userAuth = require("../middlewares/userMiddleware");
 const upload = require("../middlewares/fileuploadmiddleware");
 const postController = require("../controllers/postController");
+const chatController = require("../controllers/chatController");
 
 router.post('/login',userController.login);
 router.post('/authuser',userAuth,userController.authUser);
@@ -24,5 +25,7 @@ router.post('/delete-user', userAuth, userController.deleteUser);
 router.post('/like-dislike', userAuth, postController.likeDislike);
 router.post('/add-comment', userAuth, postController.addPostComment);
 router.post('/get-comment', userAuth, postController.getPostComments);
+router.post('/get-chat-users', userAuth, chatController.getchatUsers);
+router.post('/get-conversion', userAuth, chatController.getChatMessages);
 
 module.exports = router;
