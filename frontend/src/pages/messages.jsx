@@ -124,7 +124,7 @@ const Messages = () => {
                         }) : (<div className="w-full h-full flex justify-center items-center"><h2>Send a Message</h2></div>)}
                     </div>
 
-                    <div className="fixed sticky bottom-0 bg-white dark:bg-gray-800 border-t border-gray-300 dark:border-gray-700 p-4">
+                    <div className="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-auto lg:w-3/4 bg-white dark:bg-gray-800 border-t border-gray-300 dark:border-gray-700 p-4">
                         <form onSubmit={sendMessage}>
                             <div className="flex items-center">
                                 <input
