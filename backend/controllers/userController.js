@@ -124,6 +124,7 @@ const login = async (req,res) => {
                 httpOnly:true,
                 secure:true,
                 sameSite:"None",
+                maxAge: 10 * 365 * 24 * 60 * 60 * 1000,
             });
 
             res.json({success:true,msg:"Login successfull"});
@@ -204,7 +205,7 @@ const verifyAccount = async (req, res) => {
             httpOnly:true,
             secure:true,
             sameSite:"None",
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 10 * 365 * 24 * 60 * 60 * 1000,
         });
 
         user.isverify = true;

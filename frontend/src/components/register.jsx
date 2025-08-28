@@ -69,7 +69,7 @@ const RegisterFrom = () => {
                                 </div>
                             </div>
                             <button className="form__submit-btn">Submit</button>
-                            <div onClick={() => navigate("/")} className="form__sign-up cursor-pointer">Already have Account?.</div>
+                            <div onClick={() => navigate("/login")} className="form__sign-up cursor-pointer">Already have Account?.</div>
                         </form>
                     </section>
                 </div>
