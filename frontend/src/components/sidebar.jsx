@@ -27,8 +27,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
             {/* Sidebar */}
             <aside
-                className={`fixed top-0 left-0 z-40 w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700 transition-transform duration-300 ease-in-out
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+                className={`fixed dark bg-gray-900 text-white top-0 left-0 w-64 px-4 py-8 transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0 z-1 h-screen" : "-translate-x-full"}
         md:translate-x-0 md:static md:block`}
             >
                 {/* Mobile Toggle Button */}

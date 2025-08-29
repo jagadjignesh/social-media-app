@@ -10,8 +10,8 @@ const Connections = () => {
 
     return (
         <>
-            <div className="dark bg-gray-900 text-white p-6 flex-1 min-h-screen">
-                <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+            <div className="h-[calc(99.30vh-60px)] dark bg-gray-900 text-white p-6 flex-1">
+                <ul className="sticky top-0 left-0 dark bg-gray-900 text-white flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 z-1">
                     <li className="me-2">
                         <div className={connState == "all" ? activeTab : inActiveTab } onClick={() => setConnState("all")}>All Users</div>
                     </li>

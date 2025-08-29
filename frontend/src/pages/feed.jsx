@@ -25,7 +25,7 @@ const Feed = () => {
 
     return (
         <>
-            <div className="dark bg-gray-900 min-h-screen text-white p-6 flex">
+            <div className="h-80 p-6 flex">
                 {/* <h2>feed</h2> */}
                 <div className="flex-2">
                     <Posts posts={feed} />

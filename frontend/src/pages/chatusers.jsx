@@ -21,7 +21,7 @@ const ChatUsers = () => {
     },[]);
 
     return (
-        <div className="dark:bg-gray-900 bg-white min-h-screen text-gray-900 dark:text-white p-6 flex flex-col gap-6 md:flex-row">
+        <div className="dark:bg-gray-900 bg-white text-gray-900 dark:text-white p-6 flex flex-col gap-6 md:flex-row">
             <div className="relative w-full flex flex-col rounded-lg border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
                 <nav className="flex flex-col gap-1 p-1.5">
                     {conversations && conversations.length > 0 ? conversations.map((conversation, index) => (

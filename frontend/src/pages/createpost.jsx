@@ -35,7 +35,7 @@ const CreatePost = () => {
 
     return (
         <>
-            <div className="dark bg-gray-900 text-white min-h-screen p-6 flex-1">
+            <div className="dark bg-gray-900 text-white p-6 flex-1">
                 <form encType="multipart/form-data" onSubmit={handlePostCreate}>
                     <div className="bg-gray-800 p-6 rounded-lg w-96">
                         <h3 className="text-lg font-semibold mb-4">Create Post</h3>

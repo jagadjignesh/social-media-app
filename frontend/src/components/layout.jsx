@@ -18,9 +18,9 @@ const Layout = () => {
     return (
         <>
             <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-            <div className="flex h-screen">
+            <div className="flex dark bg-gray-900 text-white h-[calc(99.30vh-60px)]">
                 <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-                <main className="flex-1 overflow-y-auto">
+                <main className="flex-1 h-auto overflow-auto">
                     <Outlet />
                 </main>
             </div>
