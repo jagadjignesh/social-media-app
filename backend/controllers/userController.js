@@ -28,20 +28,29 @@ const register = async (req,res) => {
     await authEmail.sendMail({
         from: process.env.FROM_EMAIL,
         to: email,
-        subject: "Verify your account",
-        text: `Hi there, \n\nThank you for signing up. Please use the following One-Time Password (OTP) to verify your account: \n\n${otp}\n\nThis OTP will expire in 10 minutes. If you did not request this, please ignore this email.`,
-        html: `<div style="font-family: Arial, sans-serif; color: #333;">
+        subject: "Your Verification Code",
+        text: `Hello,
+            We received a request to verify your email address for your new account.
+            Your verification code is: ${otp}
+            Please enter this code within the next 10 minutes to complete the verification.
+            If you didn’t request this, you can safely ignore this message.
+            Thank you,
+            The Team`,
+            html: `
+            <div style="font-family: Arial, sans-serif; color: #333;">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td align="center">
                             <table width="600" cellpadding="20" cellspacing="0" border="0" style="border: 1px solid #e0e0e0; border-radius: 8px;">
                                 <tr>
                                     <td>
-                                        <h2 style="color: #007bff;">Account Verification</h2>
-                                        <p>Hi there,</p>
-                                        <p>Thank you for signing up. Please use the following One-Time Password (OTP) to verify your account:</p>
-                                        <p style="font-size: 24px; font-weight: bold; color: #007bff;">${otp}</p>
-                                        <p>This OTP will expire in 10 minutes. If you did not request this, please ignore this email.</p>
+                                        <h2 style="color: #333;">Email Verification</h2>
+                                        <p>Hello,</p>
+                                        <p>We received a request to verify your email address for a new account.</p>
+                                        <p style="font-size: 22px; font-weight: bold; color: #333;">Your code: ${otp}</p>
+                                        <p>Please enter this code within 10 minutes to complete the process.</p>
+                                        <p>If you didn’t request this, you can safely ignore this email.</p>
+                                        <p style="margin-top: 30px;">Best regards,<br/>The Team</p>
                                     </td>
                                 </tr>
                             </table>
@@ -88,20 +97,29 @@ const login = async (req,res) => {
                 await authEmail.sendMail({
                     from: process.env.FROM_EMAIL,
                     to: email,
-                    subject: "Verify your account",
-                    text: `Hi there, \n\nThank you for signing up. Please use the following One-Time Password (OTP) to verify your account: \n\n${otp}\n\nThis OTP will expire in 10 minutes. If you did not request this, please ignore this email.`,
-                    html: `<div style="font-family: Arial, sans-serif; color: #333;">
+                    subject: "Your Verification Code",
+                    text: `Hello,
+                        We received a request to verify your email address for your new account.
+                        Your verification code is: ${otp}
+                        Please enter this code within the next 10 minutes to complete the verification.
+                        If you didn’t request this, you can safely ignore this message.
+                        Thank you,
+                        The Team`,
+                        html: `
+                        <div style="font-family: Arial, sans-serif; color: #333;">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td align="center">
                                         <table width="600" cellpadding="20" cellspacing="0" border="0" style="border: 1px solid #e0e0e0; border-radius: 8px;">
                                             <tr>
                                                 <td>
-                                                    <h2 style="color: #007bff;">Account Verification</h2>
-                                                    <p>Hi there,</p>
-                                                    <p>Thank you for signing up. Please use the following One-Time Password (OTP) to verify your account:</p>
-                                                    <p style="font-size: 24px; font-weight: bold; color: #007bff;">${otp}</p>
-                                                    <p>This OTP will expire in 10 minutes. If you did not request this, please ignore this email.</p>
+                                                    <h2 style="color: #333;">Email Verification</h2>
+                                                    <p>Hello,</p>
+                                                    <p>We received a request to verify your email address for a new account.</p>
+                                                    <p style="font-size: 22px; font-weight: bold; color: #333;">Your code: ${otp}</p>
+                                                    <p>Please enter this code within 10 minutes to complete the process.</p>
+                                                    <p>If you didn’t request this, you can safely ignore this email.</p>
+                                                    <p style="margin-top: 30px;">Best regards,<br/>The Team</p>
                                                 </td>
                                             </tr>
                                         </table>
@@ -245,18 +263,37 @@ const sendResetPasswordEmail = async (req, res) => {
         await authEmail.sendMail({
             from: process.env.FROM_EMAIL,
             to: email,
-            subject: "Reset password link email",
+            subject: "Reset Your Password",
             html: `
-                <div>
-                <p>Hello ${user.name},</p>
-                <p>Please reset your password by clicking the link below:</p>
-                <a href="${resetlink}" target="_blank" rel="noopener noreferrer">
-                    Reset Password
-                </a>
-                <p>If you didn't request this, you can safely ignore this email.</p>
+                <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td align="center">
+                                <table width="600" cellpadding="20" cellspacing="0" border="0" style="border: 1px solid #e0e0e0; border-radius: 8px;">
+                                    <tr>
+                                        <td>
+                                            <h2 style="color: #333;">Password Reset Request</h2>
+                                            <p>Hi ${user.name},</p>
+                                            <p>We received a request to reset the password for your account.</p>
+                                            <p>To reset your password, click the button below:</p>
+                                            <p style="text-align: center;">
+                                                <a href="${resetlink}" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 4px;">
+                                                    Reset Password
+                                                </a>
+                                            </p>
+                                            <p>This link will expire in 10 minutes for your security.</p>
+                                            <p>If you didn’t request a password reset, you can safely ignore this email.</p>
+                                            <p style="margin-top: 30px;">Best regards,<br/>The Team</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             `
         });
+
         
         res.json({success:true,msg:"Please check reset link from your email"});
     } catch (error) {

@@ -74,7 +74,7 @@ const RegisterFrom = () => {
                     </section>
                 </div>
             ) : (
-                <VerifyAccount email={email} />
+                <VerifyAccount email={email} setIsVerifyAccount={setIsVerifyAccount} />
             )}
         </>
     );
